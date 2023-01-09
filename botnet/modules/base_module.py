@@ -3,6 +3,7 @@ import time
 
 from botnet import logger
 
+# BaseModule class
 class BaseModule(Thread):
     def __init__(self, params):
         logger.debug("module " + self.__class__.__name__ + " loaded")
@@ -10,9 +11,11 @@ class BaseModule(Thread):
 
         self.finish_func_options = []
 
+    # This method allow the task to retrieve when the module finish
     def setFinishFunc(self, func):
         self.finish_func = func
 
+    # Start module
     def start(self):
         Thread.__init__(self)
         Thread.start(self)
@@ -23,6 +26,7 @@ class BaseModule(Thread):
         self.exec()
         self.finish_func(options=self.finish_func_options)
 
+    # All do code are stored here
     def exec(self):
         pass
 
@@ -34,13 +38,16 @@ class TimedModule(BaseModule):
         self.timer = self.Timer(self, delay)
         self.status = True
 
+    # All do code are stored here
     def exec(self):
         while self.status:
             self.in_loop()
 
+    # Loop code are stored here
     def in_loop(self):
         pass
 
+    # Timer class to monitor the task
     class Timer(Thread):
         def __init__(self, target, delay):
             self.target = target

@@ -1,12 +1,14 @@
 from botnet.module_manager import ModuleManager
 from botnet.bot.bot import RegisteredBot, GuestBot
 
+# main() without ID generation
 def main1():
     bot = RegisteredBot("client123", "localhost")
     bot.connect()
     bot.subscribe("botnet/task")
     bot.listen()
 
+# main() with ID generation
 def main():
     bot = GuestBot("localhost")
 

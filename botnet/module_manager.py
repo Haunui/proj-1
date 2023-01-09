@@ -3,13 +3,15 @@ from importlib import import_module
 
 from botnet import logger
 
-
+# Modules paths (botnet/modules)
 MODULES_PATH="botnet.modules"
 
+# ModuleManager class
 class ModuleManager():
     def __init__(self):
         self.MODULES={}
 
+    # Load modules
     def load(self):
         self.MODULES={}
         for path in os.listdir(MODULES_PATH.replace(".","/")):
@@ -17,6 +19,7 @@ class ModuleManager():
                 filename = path.replace(".py","")
                 self.MODULES[filename] = import_module(MODULES_PATH + "." + filename)
 
+    # List modules
     def list(self):
         s=""
         for k in self.MODULES.keys():

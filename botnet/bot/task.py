@@ -4,10 +4,13 @@ import importlib
 from threading import Thread
 from botnet import logger
 
+# Differents task status
 TASK_WAITING=0
 TASK_IN_PROGRESS=1
 TASK_FINISH=2
 
+# TaskManager class
+# This class register all arrived task in a queue and execute them one by one
 class TaskManager(Thread):
     def __init__(self, module_manager):
         self.module_manager = module_manager
@@ -35,6 +38,7 @@ class TaskManager(Thread):
 
             time.sleep(1)
 
+    # Compute received command
     def queue(self, topic, command):
         if topic == "botnet/task":
             e = command.split(":",2)
@@ -61,7 +65,8 @@ class TaskManager(Thread):
             else:
                 logger.error("Task id already exists")
 
-
+# Task class
+# Commands informations are stored here
 class Task():
     def __init__(self, module, params):
         self.module = module
@@ -69,6 +74,7 @@ class Task():
         self.params = params
         self.status = TASK_WAITING
 
+    # Start the task
     def start(self):
         self.status = TASK_IN_PROGRESS
         logger.info("Task {} started".format(self.classname))
@@ -78,6 +84,7 @@ class Task():
         self.instance.setFinishFunc(self.finish)
         self.instance.start()
 
+    # On task finish
     def finish(self, options=[]):
         self.status = TASK_FINISH
 
