@@ -1,5 +1,11 @@
 from botnet.module_manager import ModuleManager
-from botnet.bot.bot import GuestBot
+from botnet.bot.bot import RegisteredBot, GuestBot
+
+def main1():
+    bot = RegisteredBot("client123", "localhost")
+    bot.connect()
+    bot.subscribe("botnet/task")
+    bot.listen()
 
 def main():
     bot = GuestBot("localhost")
@@ -14,4 +20,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main1()
