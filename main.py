@@ -1,8 +1,6 @@
 from botnet.module_manager import ModuleManager
 from botnet.bot.bot import GuestBot
 
-import importlib
-
 def main():
     bot = GuestBot("localhost")
 
